@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project ver="10" name="Hosts切换助手" libEmbed="true" icon="res\favicon.ico" ui="win" output="Hosts切换助手.exe" CompanyName="手盟网络" FileDescription="Hosts切换助手 412530435@qq.com" LegalCopyright="Copyright (C) sherman 2019" ProductName="Hosts切换助手" InternalName="switchHosts" FileVersion="0.0.0.11" ProductVersion="0.0.0.11" publishDir="/Publish/" dstrip="false">
+	<file name="main.aardio" path="main.aardio" comment="main.aardio"/>
+	<folder name="Js渲染进程" path="res" embed="true">
+		<file name="favicon.ico" path="res\favicon.ico" comment="窗口图标"/>
+		<file name="index.aardio" path="res\index.aardio" comment="res\index.aardio"/>
+	</folder>
+</project>
