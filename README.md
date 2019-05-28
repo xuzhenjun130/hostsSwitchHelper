@@ -22,7 +22,7 @@ build 步骤：
 
 
 
-[下载地址]: https://github.com/xuzhenjun130/hostsSwitchHelper/releases
+[下载地址](https://github.com/xuzhenjun130/hostsSwitchHelper/releases)
 
 
 
