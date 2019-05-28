@@ -220,6 +220,7 @@ export default {
           // 激活当前配置
           this.activeIndex = this.temp.name;
           this.code = '# ' + this.temp.name;
+          this.cmOptions.readOnly = false;
           this.dialogFormVisible = false;
         }
       });

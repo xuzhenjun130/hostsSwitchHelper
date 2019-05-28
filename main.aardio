@@ -78,21 +78,24 @@ app.external = {
     }
     //获取全部配置
     getConfig = function(){
-        var ini=fsys.ini(configPath) //配置文件
+        var tab = {}
         //如果不存在，则创建一个系统备份
-        if(io.exist(configPath)){
+        if(io.exist(configPath)==null){
+            var ini=fsys.ini(configPath) //配置文件
         	//读取小节对象
 			sec = ini.getSection("备份hosts")
 			sec.status = "on"
 			sec.hosts = string.hex(string.load(file)) // 转16进制
 			sec.name = "备份hosts"
 			sec.save()
-        }
-        
-    	var tab = {}
-    	for section in ini.eachSection() { 
-    		section.hosts = string.unhex(section.hosts) //16进转字符串
-    		table.push(tab,section)
+			sec.hosts = string.unhex(sec.hosts)
+			table.push(tab,sec)
+    	}else{
+    		var ini=fsys.ini(configPath) //配置文件
+    		for section in ini.eachSection() { 
+    			section.hosts = string.unhex(section.hosts) //16进转字符串
+    			table.push(tab,section)
+           }
     	}
     	return tab;
     }
