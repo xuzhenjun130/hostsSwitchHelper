@@ -17,7 +17,7 @@
 
           <el-menu-item v-for="(item,key) in config" :key="key" :index="item.name">
             <span slot="title">
-              <span style="float:left;">{{ item.name }}</span>
+              <span class="itemName">{{ item.name }}</span>
               <span style="float:right;">
                 <el-switch v-model="item.status" @change="updateStatus(item)" />
                 <span style="margin-left:20px;">
@@ -50,7 +50,7 @@
       </el-main>
     </el-container>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="30%">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="30%" :close-on-click-modal="false">
       <el-form
         ref="dataForm"
         :rules="rules"
@@ -61,6 +61,10 @@
       >
         <el-form-item label="名称" prop="name">
           <el-input v-model="temp.name" />
+        </el-form-item>
+
+        <el-form-item label="IP" prop="ip">
+          <el-input v-model="temp.ip" />
         </el-form-item>
       </el-form>
 
@@ -75,12 +79,7 @@
 </template>
 
 <script>
-// 开发模式 手动引入aardio，编译后aardio.js 中的端口是自动生成的
-if (process.env.NODE_ENV === 'development') {
-  // eslint-disable-next-line no-unused-vars
-  const aardio = require('./plugins/aardio.js');
-}
-
+import aardio from 'aardio';
 // language js
 import 'codemirror/mode/ttcn-cfg/ttcn-cfg.js';
 
@@ -104,12 +103,38 @@ export default {
         mode: 'text/x-ttcn-cfg',
         lineNumbers: true,
         line: true,
-        readOnly: true
+        readOnly: true,
+        extraKeys: {
+          // 回车自动补全ip
+          Enter: (cm) => {
+            const doc = cm.doc;
+            const line = doc.getCursor().line; // 当前行
+            const text = doc.getLineHandle(line).text.trim(); // 当前行的内容
+            // 有空格、有#注释，自动跳到下一行
+            if (text.indexOf(' ') > 0 || text.indexOf('#') === 0) {
+              cm.execCommand('newlineAndIndent');
+              return;
+            }
+            if (!this.temp.ip) {
+              return;
+            }
+            cm.execCommand('goLineStartSmart'); // 跳到行首
+            cm.replaceSelection(this.temp.ip + ' '); // 输入ip
+            setTimeout(() => {
+              cm.execCommand('goLineEndAlt-Right'); // 调到行位
+              cm.execCommand('goLineDown');// 下一行
+              setTimeout(() => {
+                cm.execCommand('newlineAndIndent'); // 换行
+              }, 200);
+            }, 200);
+          }
+        }
       },
       config: [],
-      temp: { name: '', status: true, hosts: '' },
+      temp: { name: '', status: true, hosts: '', ip: '' },
       rules: {
-        name: [{ required: true, message: '不得为空' }]
+        name: [{ required: true, message: '不得为空' }],
+        ip: [{ required: true, message: '不得为空' }]
       },
       currentItem: {} // 当前正在编辑
     };
@@ -215,7 +240,8 @@ export default {
           this.config.push({
             name: this.temp.name,
             status: true,
-            hosts: '# ' + this.temp.name
+            hosts: '# ' + this.temp.name,
+            ip: this.temp.ip
           });
           // 激活当前配置
           this.activeIndex = this.temp.name;
@@ -305,5 +331,13 @@ body {
 }
 .el-menu-item.is-active {
   background: rgb(67, 74, 80) !important;
+}
+.itemName{
+  width:90px;
+  overflow: hidden;
+  float: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
 }
 </style>
