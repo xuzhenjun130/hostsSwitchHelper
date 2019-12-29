@@ -19,7 +19,8 @@ class iniHosts{
 		var content = ""; 
 		for section in this.ini.eachSection() { 
 			if(section.status=="on"){
-				content +=  ..string.unhex(section.hosts) + '\r\n' //16进转字符串
+				var hosts =  ..string.unhex(section.hosts) + '\r\n' //16进转字符串
+				content = ..string.concat(content,hosts);
 			}
 		}
 		..fsys.hosts.saveText(content) 
@@ -44,6 +45,9 @@ class iniHosts{
 	updateSection = function(oldName,newName,status,data,ip){ 
 		if(oldName != newName){ 
 			this.ini.write(oldName,null,)
+		}
+		if(!ip){
+			return 'ip empty';
 		}
 			
 		sec = this.ini.getSection(newName)

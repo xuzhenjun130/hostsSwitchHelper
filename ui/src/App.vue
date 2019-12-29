@@ -111,7 +111,7 @@ export default {
             const line = doc.getCursor().line; // 当前行
             const text = doc.getLineHandle(line).text.trim(); // 当前行的内容
             // 有空格、有#注释，自动跳到下一行
-            if (text.indexOf(' ') > 0 || text.indexOf('#') === 0) {
+            if (text.length === 0 || text.indexOf(' ') > 0 || text.indexOf('#') === 0) {
               cm.execCommand('newlineAndIndent');
               return;
             }
@@ -136,7 +136,7 @@ export default {
         name: [{ required: true, message: '不得为空' }],
         ip: [{ required: true, message: '不得为空' }]
       },
-      currentItem: {} // 当前正在编辑
+      currentItem: {} // 当前正在编辑,旧的值
     };
   },
 
@@ -200,6 +200,7 @@ export default {
         this.cmOptions.readOnly = false;
         for (const item of this.config) {
           if (item.name === index) {
+            this.temp = item;
             this.code = item.hosts;
             break;
           }
@@ -217,7 +218,8 @@ export default {
             item.name,
             item.name,
             item.status === true ? 'on' : 'off',
-            item.hosts
+            item.hosts,
+            item.ip
           );
           console.log(item, '更新配置');
           break;
@@ -226,6 +228,7 @@ export default {
     },
     create() {
       this.temp.name = '';
+      this.temp.ip = '';
       this.dialogStatus = 'create';
       this.dialogFormVisible = true;
       this.$nextTick(() => {
@@ -236,7 +239,7 @@ export default {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
           // eslint-disable-next-line no-undef
-          aardio.create(this.temp.name);
+          aardio.create(this.temp.name, this.temp.ip);
           this.config.push({
             name: this.temp.name,
             status: true,
@@ -248,14 +251,14 @@ export default {
           this.code = '# ' + this.temp.name;
           this.cmOptions.readOnly = false;
           this.dialogFormVisible = false;
+          console.log(this.temp, '新增配置');
         }
       });
     },
     // 修改名称弹窗
     update(item) {
-      this.currentItem = item;
+      this.currentItem = Object.assign({}, item);
       this.temp = Object.assign({}, item); // copy obj
-      this.temp.oldName = item.name;
       this.dialogStatus = 'update';
       this.dialogFormVisible = true;
       this.$nextTick(() => {
@@ -266,12 +269,16 @@ export default {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
           this.currentItem.name = this.temp.name; // 修改名称
+          // 替换ip
+          this.temp.hosts = this.temp.hosts.replace(new RegExp(this.currentItem.ip, 'gm'), this.temp.ip);
+          this.code = this.temp.hosts;
           // eslint-disable-next-line no-undef
           aardio.update(
-            this.temp.oldName,
+            this.currentItem.name,
             this.temp.name,
             this.temp.status === true ? 'on' : 'off',
-            this.temp.hosts
+            this.temp.hosts,
+            this.temp.ip
           );
           this.dialogFormVisible = false;
         }
@@ -284,7 +291,8 @@ export default {
         item.name,
         item.name,
         item.status === true ? 'on' : 'off',
-        item.hosts
+        item.hosts,
+        item.ip
       );
     },
     del(item) {
