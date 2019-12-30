@@ -1,8 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project ver="10" name="Hosts切换助手" libEmbed="true" icon="res\favicon.ico" ui="win" output="Hosts切换助手.exe" CompanyName="手盟网络" FileDescription="Hosts切换助手 412530435@qq.com" LegalCopyright="Copyright (C) sherman 2019" ProductName="Hosts切换助手" InternalName="switchHosts" FileVersion="0.0.0.11" ProductVersion="0.0.0.11" publishDir="/Publish/" dstrip="false" local="false">
+<project ver="10" name="Hosts切换助手" libEmbed="true" icon="res\favicon.ico" ui="win" output="Hosts切换助手.exe" CompanyName="手盟网络" FileDescription="Hosts切换助手 412530435@qq.com" LegalCopyright="Copyright (C) sherman 2019" ProductName="Hosts切换助手" InternalName="switchHosts" FileVersion="0.0.0.12" ProductVersion="0.0.0.12" publishDir="/Publish/" dstrip="false" local="false">
 	<file name="main.aardio" path="main.aardio" comment="main.aardio"/>
-	<folder name="Js渲染进程" path="res" embed="true" local="false">
-		<file name="favicon.ico" path="res\favicon.ico" comment="窗口图标"/>
+	<folder name="web-ui" path="res" comment="res" embed="true" local="true">
 		<file name="index.aardio" path="res\index.aardio" comment="res\index.aardio"/>
+		<folder name="css" path="res\css" comment="res\css" embed="false" local="false">
+			<file name="app.5aa36705.css" path="res\css\app.5aa36705.css" comment="res\css\app.5aa36705.css"/>
+			<file name="chunk-vendors.6e8918a2.css" path="res\css\chunk-vendors.6e8918a2.css" comment="res\css\chunk-vendors.6e8918a2.css"/>
+		</folder>
+		<folder name="fonts" path="res\fonts" comment="res\fonts" embed="false" local="false">
+			<file name="element-icons.535877f5.woff" path="res\fonts\element-icons.535877f5.woff" comment="res\fonts\element-icons.535877f5.woff"/>
+			<file name="element-icons.732389de.ttf" path="res\fonts\element-icons.732389de.ttf" comment="res\fonts\element-icons.732389de.ttf"/>
+		</folder>
+		<folder name="js" path="res\js" comment="res\js">
+			<file name="app.6ad06105.js" path="res\js\app.6ad06105.js" comment="res\js\app.6ad06105.js"/>
+			<file name="chunk-vendors.81b8811a.js" path="res\js\chunk-vendors.81b8811a.js" comment="res\js\chunk-vendors.81b8811a.js"/>
+		</folder>
 	</folder>
 </project>

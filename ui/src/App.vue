@@ -270,7 +270,10 @@ export default {
         if (valid) {
           this.currentItem.name = this.temp.name; // 修改名称
           // 替换ip
-          this.temp.hosts = this.temp.hosts.replace(new RegExp(this.currentItem.ip, 'gm'), this.temp.ip);
+          if (this.currentItem.ip) {
+            this.temp.hosts = this.temp.hosts.replace(new RegExp(this.currentItem.ip, 'gm'), this.temp.ip);
+          }
+
           this.code = this.temp.hosts;
           // eslint-disable-next-line no-undef
           aardio.update(
