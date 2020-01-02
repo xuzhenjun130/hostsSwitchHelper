@@ -200,7 +200,7 @@ export default {
         this.cmOptions.readOnly = false;
         for (const item of this.config) {
           if (item.name === index) {
-            this.temp = Object.assign({}, item);
+            this.temp = Object.assign(this.temp, item);
             this.code = item.hosts;
             break;
           }
