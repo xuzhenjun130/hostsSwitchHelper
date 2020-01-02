@@ -46,9 +46,11 @@ class iniHosts{
 		if(oldName != newName){ 
 			this.ini.write(oldName,null,)
 		}
+/*
 		if(!ip){
 			return 'ip empty';
 		}
+*/
 			
 		sec = this.ini.getSection(newName)
 		sec.status = status

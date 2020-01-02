@@ -110,12 +110,9 @@ export default {
             const doc = cm.doc;
             const line = doc.getCursor().line; // 当前行
             const text = doc.getLineHandle(line).text.trim(); // 当前行的内容
-            // 有空格、有#注释，自动跳到下一行
-            if (text.length === 0 || text.indexOf(' ') > 0 || text.indexOf('#') === 0) {
+            // 无ip, 有空格、有#注释，自动跳到下一行
+            if (!this.temp.ip || text.length === 0 || text.indexOf(' ') > 0 || text.indexOf('#') === 0) {
               cm.execCommand('newlineAndIndent');
-              return;
-            }
-            if (!this.temp.ip) {
               return;
             }
             cm.execCommand('goLineStartSmart'); // 跳到行首

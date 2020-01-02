@@ -2,7 +2,7 @@
 
 hosts切换助手
 
-![](https://github.com/xuzhenjun130/hostsSwitchHelper/blob/master/res/main.png?raw=true)
+![](https://github.com/xuzhenjun130/hostsSwitchHelper/blob/master/main.gif?raw=true)
 
 功能基本参考SwitchHosts，SwitchHosts 基于Electron，兼容多系统，但是文件体积比较大50M+。在最新版chrome浏览器已经无法使用remote debugging protocol 来清理DNS缓存了，于是自己动手写一个。
 

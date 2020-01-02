@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project ver="10" name="Hosts切换助手" libEmbed="true" icon="res\favicon.ico" ui="win" output="Hosts切换助手.exe" CompanyName="手盟网络" FileDescription="Hosts切换助手 412530435@qq.com" LegalCopyright="Copyright (C) sherman 2019" ProductName="Hosts切换助手" InternalName="switchHosts" FileVersion="0.0.0.12" ProductVersion="0.0.0.12" publishDir="/Publish/" dstrip="false" local="false">
+<project ver="10" name="Hosts切换助手" libEmbed="true" icon="res\favicon.ico" ui="win" output="Hosts切换助手.exe" CompanyName="手盟网络" FileDescription="Hosts切换助手 412530435@qq.com" LegalCopyright="Copyright (C) sherman 2019" ProductName="Hosts切换助手" InternalName="switchHosts" FileVersion="0.0.0.17" ProductVersion="0.0.0.17" publishDir="/Publish/" dstrip="false" local="false">
 	<file name="main.aardio" path="main.aardio" comment="main.aardio"/>
 	<folder name="web-ui" path="res" comment="res" embed="true" local="true">
 		<file name="index.aardio" path="res\index.aardio" comment="res\index.aardio"/>
