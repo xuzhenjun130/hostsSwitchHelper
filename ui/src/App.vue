@@ -50,7 +50,12 @@
       </el-main>
     </el-container>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="30%" :close-on-click-modal="false">
+    <el-dialog
+      :title="textMap[dialogStatus]"
+      :visible.sync="dialogFormVisible"
+      width="30%"
+      :close-on-click-modal="false"
+    >
       <el-form
         ref="dataForm"
         :rules="rules"
@@ -197,7 +202,7 @@ export default {
         this.cmOptions.readOnly = false;
         for (const item of this.config) {
           if (item.name === index) {
-            this.temp = Object.assign(this.temp, item);
+            this.temp = Object.assign({}, item);
             this.code = item.hosts;
             break;
           }
@@ -280,6 +285,14 @@ export default {
             this.temp.hosts,
             this.temp.ip
           );
+          // 替换 config
+          for (const v of this.config) {
+            if (v.name === this.temp.name) {
+              const index = this.config.indexOf(v);
+              this.config.splice(index, 1, this.temp);
+              break;
+            }
+          }
           this.dialogFormVisible = false;
         }
       });
@@ -340,12 +353,11 @@ body {
 .el-menu-item.is-active {
   background: rgb(67, 74, 80) !important;
 }
-.itemName{
-  width:90px;
+.itemName {
+  width: 90px;
   overflow: hidden;
   float: left;
   text-overflow: ellipsis;
   white-space: nowrap;
-
 }
 </style>
